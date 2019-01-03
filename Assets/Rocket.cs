@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Rocket : MonoBehaviour {
 
-    Rigidbody rigidbody;
+    private Rigidbody rigidbody;
 
 	// Use this for initialization
 	void Start () {
@@ -27,10 +27,10 @@ public class Rocket : MonoBehaviour {
         // rotating
         if (Input.GetKey(KeyCode.D))
         {
-            print("Turn Right");
+            transform.Rotate(Vector3.forward);
         } else if (Input.GetKey(KeyCode.A))
         {
-            print("Turn Left");
+            transform.Rotate(-Vector3.forward);
         }
     }
 }
