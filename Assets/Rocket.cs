@@ -21,6 +21,17 @@ public class Rocket : MonoBehaviour {
         Rotate();
 	}
 
+    private void OnCollisionEnter(Collision collision)
+    {
+       if (collision.gameObject.tag == "Friendly")
+        {
+            print("OK");
+        } else
+        {
+            print("dead");
+        }
+    }
+
     private void Thrust()
     {
         // forward and backward
