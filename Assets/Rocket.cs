@@ -6,9 +6,11 @@ public class Rocket : MonoBehaviour {
 
     private Rigidbody rigidbody;
     private AudioSource rocketSound;
+    [SerializeField] private float boostPower = 100f;
+    [SerializeField] private float rotatePower = 100f;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         rigidbody = GetComponent<Rigidbody>();
         rocketSound = GetComponent<AudioSource>();
 	} 
@@ -24,7 +26,10 @@ public class Rocket : MonoBehaviour {
         // forward and backward
         if (Input.GetKey(KeyCode.Space))
         {
-            rigidbody.AddRelativeForce(Vector3.up);
+            float moveThisFrame = boostPower * Time.deltaTime;
+            Vector3 moveAxis = Vector3.up;
+
+            rigidbody.AddRelativeForce(moveAxis * moveThisFrame);
             if (!rocketSound.isPlaying)
             {
                 rocketSound.Play();
@@ -40,15 +45,19 @@ public class Rocket : MonoBehaviour {
     {
         // disable physics during manual rotation
         rigidbody.freezeRotation = true;
+        
+        float rotationThisFrame = rotatePower * Time.deltaTime;
 
         // rotating
         if (Input.GetKey(KeyCode.A))
         {
-            transform.Rotate(Vector3.forward);
+            Vector3 rotateAxis = Vector3.forward;
+            transform.Rotate(rotateAxis * rotationThisFrame);
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            transform.Rotate(-Vector3.forward);
+            Vector3 rotateAxis = -Vector3.forward;
+            transform.Rotate(rotateAxis * rotationThisFrame);
         }
 
         // enable physics after manual rotation
